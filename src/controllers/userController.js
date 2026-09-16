@@ -1,3 +1,4 @@
+import { blackListedToken } from "../services/token.service.js";
 import { registerNewUser, signUserIn,  } from "../services/userServices.js";
 
 
@@ -31,5 +32,8 @@ export const logIn = async(req, res) =>{
 
 export const logOut = async (req, res) =>{
 
-    
+    const token = req.token;
+
+    blackListedToken(token)
+    res.status(200).json({meesage:"Logged out successfully"})
 }

@@ -1,3 +1,5 @@
+import { isTokenBlackLised } from "../services/token.service.js";
+import jwt from "jsonwebtoken"
 import { config } from "dotenv";
 config();
 
@@ -13,12 +15,19 @@ export const authMiddleware = (req, res, next) =>{
     }
     const token = authHeader.split(" ")[1]
 
-
+    if (isTokenBlackLised(token)){
+        return res.status(401).json({message: "user loggedout"})
+    }
 
     try{
-
+        const decoded = jwt.verify(token,JWT_SECRET);
+        req.user = decoded;
+        req.token = token;
+        next()
 
     }catch(err){
+
+        return res.status(500).json({message: err.message })
 
     }
 

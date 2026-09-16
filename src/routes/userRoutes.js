@@ -1,6 +1,7 @@
-import { register, logIn } from "../controllers/userController.js";
+import { register, logIn, logOut } from "../controllers/userController.js";
 import {Router} from "express";
 import { userRegisterSchema, userLogInSchema } from "../schemas/userSchema.js";
+import { authMiddleware } from "../middleware/authMiddleware.js";
 import { validateRequest } from "../middleware/userValidation.js";
 
 
@@ -16,7 +17,7 @@ router.post("/register",validateRequest(userRegisterSchema), register )
 
 router.post("/login", validateRequest(userLogInSchema), logIn)
 
-router.post('/logout')
+router.post('/logout', authMiddleware, logOut)
 
 
 
