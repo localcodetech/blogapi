@@ -21,6 +21,8 @@
     "jsonwebtoken": "^9.0.3",
     "mysql2": "^3.24.4",
     "pg": "^8.23.0",
+    "redis": "^6.2.1",
+    "redis-client": "^0.3.5",
     "sequelize": "^6.37.8",
     "zod": "^4.6.5"
   }
