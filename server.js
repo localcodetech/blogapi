@@ -1,6 +1,7 @@
 import app from "./src/app.js";
 import { config } from "dotenv";
-import { sequelize } from "./src/config/dbConnection.js";
+import { sequelize, } from "./src/config/dbConnection.js";
+
 config()
 const {PORT} = process.env
 
@@ -9,6 +10,9 @@ const {PORT} = process.env
 const main = async () =>{
 
     try{
+
+       
+       
         await sequelize.authenticate();
         console.log("\n DATABASE CONNECTED \n")
 

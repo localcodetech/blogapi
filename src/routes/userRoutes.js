@@ -15,7 +15,7 @@ router.get("/", (_, res)=>{res.send("ok")})
 // router.METHOD(PATH, middleware, handler)
 router.post("/register",validateRequest(userRegisterSchema), register )
 
-router.post("/login", validateRequest(userLogInSchema), logIn)
+router.post("/login",authMiddleware ,validateRequest(userLogInSchema), logIn)
 
 router.post('/logout', authMiddleware, logOut)
 
