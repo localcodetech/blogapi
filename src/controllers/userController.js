@@ -27,3 +27,9 @@ export const logIn = async(req, res) =>{
         } return res.status(500).json({meesage: err.message})
     }
 }
+
+
+export const logOut = async (req, res) =>{
+
+    
+}

@@ -16,6 +16,7 @@ router.post("/register",validateRequest(userRegisterSchema), register )
 
 router.post("/login", validateRequest(userLogInSchema), logIn)
 
+router.post('/logout')
 
 
 
