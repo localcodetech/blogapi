@@ -2,8 +2,6 @@ import User from "../models/userModels.js";
 
 
 
-const createTable = async ()=>{await User.sync()};
-
 
 
 
@@ -43,7 +41,7 @@ export const findAllUSers = async () =>{
 
 
 
-export const UpdateUSerInfo = async(id,password, username, firstname, lastname) =>{
+export const updateUSerInfo = async(id,password, username, firstname, lastname) =>{
     return await User.update({
         password: password,
         firstname:firstname,
@@ -68,4 +66,3 @@ export const deleteUSerAccount = async (id) =>{
 
 
 
-createTable();
