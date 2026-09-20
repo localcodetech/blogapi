@@ -2,6 +2,10 @@ import User from "../models/userModels.js";
 
 
 
+const createTable = async ()=>{await User.sync()};
+
+
+
 
 
 export const createUser = async (data) =>{
@@ -60,3 +64,8 @@ export const deleteUSerAccount = async (id) =>{
         id:id
     }});
 };
+
+
+
+
+createTable();
