@@ -9,7 +9,7 @@ dotenv.config();
 const {PORT} = process.env;
 
 
-const runServer =async ()=>{
+const runServer = async ()=>{
 
 
     try {
@@ -18,10 +18,10 @@ const runServer =async ()=>{
             console.log("\n DATABASE CONNECTED \n")
 
             await sequelize.sync()
-            console.info("database tables created ...")
+            console.info("database tables created ... ")
         app.listen(PORT, ()=>{
             console.log("EXPRESS SERVER RUNNING ")
-        })
+        }) 
     }
     catch(error){
         console.error(error.message)

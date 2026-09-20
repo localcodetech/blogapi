@@ -21,7 +21,7 @@ findByUserName,findUserByID, updateUSerInfo
 
  };
 
- const registerNewUserIntoDB = async (email, firstname, lastname, username, password) =>{
+export const registerNewUserIntoDB = async (email, firstname, lastname, username, password) =>{
 
     const isEmailExist = await findByUserEmail(email)
 
@@ -36,4 +36,12 @@ findByUserName,findUserByID, updateUSerInfo
     };
 
     const hashedpassword = await hashpassword(password)
- }
+
+    const newUserCreated = await createUser({firstname, lastname, email,username, password:hashedpassword})
+
+    return sanitizeDataForUser(newUserCreated)
+ };
+
+
+
+//  login logic
