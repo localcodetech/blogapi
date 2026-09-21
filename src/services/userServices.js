@@ -6,6 +6,7 @@ import { findAllUSers,
 deleteUSerAccount,
 findByUserName,findUserByID, updateUSerInfo
  } from "../repositories/userRepositories.js";
+import { generateToken } from "../utils/token.js";
 
 
  const sanitizeDataForUser = (user) =>{
@@ -16,12 +17,13 @@ findByUserName,findUserByID, updateUSerInfo
         firstname: user.firstname,
         lastname: user.lastname,
         username: user.username,
+         email:user.email,
         createdAt: user.createdAt
     };
 
  };
 
-export const registerNewUserIntoDB = async (email, firstname, lastname, username, password) =>{
+export const registerNewUserIntoDB = async ( firstname, lastname, username,email, password) =>{
 
     const isEmailExist = await findByUserEmail(email)
 
@@ -37,7 +39,7 @@ export const registerNewUserIntoDB = async (email, firstname, lastname, username
 
     const hashedpassword = await hashpassword(password)
 
-    const newUserCreated = await createUser({firstname, lastname, email,username, password:hashedpassword})
+    const newUserCreated = await createUser({firstname, lastname,username, email, password:hashedpassword})
 
     return sanitizeDataForUser(newUserCreated)
  };
@@ -45,3 +47,35 @@ export const registerNewUserIntoDB = async (email, firstname, lastname, username
 
 
 //  login logic
+
+
+
+export  const loginUseFromDB =async (email, password) =>{
+
+    const user = await findByUserEmail(email);
+
+    if (!user){
+        throw new Error("invalid credentials")
+    };
+
+    const compare = await compareHashedPassword(password, user.password);
+
+    if (!compare) {
+        throw new Error("invalid credentials")
+    }
+
+    const payload = {
+        id : user.id,
+        uuid : user.uuid,
+        username: user.username,
+    }
+
+        const token = generateToken(payload)
+
+      return {
+        user: sanitizeDataForUser(user),
+        token: token
+      }
+        
+
+}

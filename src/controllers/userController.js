@@ -1,15 +1,15 @@
 
+// src/controllers/userController.js
+import { loginUseFromDB, registerNewUserIntoDB } from "../services/userServices.js";
 
-import { registerNewUserIntoDB } from "../services/userServices.js";
 
 
-
-export const userRegisterController = (req, res) =>{
-
+export const userRegisterController =  async(req, res) =>{
+    const {firstname, lastname, username, email, password} = req.body
 
     try{
     
-        const newUser = registerNewUserIntoDB(req.body)
+        const newUser = await registerNewUserIntoDB(firstname,lastname,username,email, password)
         res.status(201).json({message: "UserData Created successfully", data: newUser})
 
     }
@@ -19,4 +19,22 @@ export const userRegisterController = (req, res) =>{
     }
 
 
+}
+
+
+
+
+export const  userLoginController = async(req, res) => {
+    const {email, password} = req.body;
+
+    try{
+
+        const user = await loginUseFromDB(email, password)
+        return res.status(200).json({message: "login successfully", data: user})
+    }
+    catch(error){
+        if (error.message === "invalid credentials") return res.status(401).json({error: "Invalid user credentials"});
+
+        return res.status(500).json({error: error.message})
+    }
 }
