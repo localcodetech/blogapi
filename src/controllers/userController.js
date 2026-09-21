@@ -48,7 +48,7 @@ export const  userLoginController = async(req, res) => {
 // logic 
 
 export const userLogoutController = async (req, res) =>{
-
+    console.log(req.user)
     const exp = req.user.exp
 try{
     const token = getAuthHeaders(req)

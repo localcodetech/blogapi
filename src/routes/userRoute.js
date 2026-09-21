@@ -7,6 +7,7 @@ import { userRegisterController, userLoginController, userLogoutController } fro
 
 import { schemaValidation } from "../middleware/validation.js";
 import { userAuthMiddleware } from "../middleware/userAuthMiddleware.js";
+import { UserProtectedController } from "../controllers/user.controller.protected.js";
 
 
 
@@ -19,6 +20,6 @@ router.post("/login", schemaValidation(loginSchema), userLoginController)
 
 router.post("/logout",userAuthMiddleware, userLogoutController )
 
-
+router.get("/me", userAuthMiddleware,UserProtectedController )
 
 export default router;

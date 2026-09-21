@@ -9,7 +9,7 @@ findByUserName,findUserByID, updateUSerInfo
 import { generateToken } from "../utils/token.js";
 
 
- const sanitizeDataForUser = (user) =>{
+ export const sanitizeDataForUser = (user) =>{
    
     return {
         id : user.id,
