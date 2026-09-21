@@ -1,7 +1,8 @@
 
 // src/controllers/userController.js
 import { loginUseFromDB, registerNewUserIntoDB } from "../services/userServices.js";
-
+import { getAuthHeaders } from "../middleware/userAuthMiddleware.js";
+import { blackListToken } from "../utils/tokenBlacklist.js";
 
 
 export const userRegisterController =  async(req, res) =>{
@@ -37,4 +38,28 @@ export const  userLoginController = async(req, res) => {
 
         return res.status(500).json({error: error.message})
     }
+};
+
+
+
+
+
+
+// logic 
+
+export const userLogoutController = async (req, res) =>{
+
+    const exp = req.user.exp
+try{
+    const token = getAuthHeaders(req)
+     await blackListToken(token, exp)
+
+    res.status(200).json({message: "Logged out successfully", 
+
+    })
+}
+catch(error){
+    res.status(500).json({error: error.message})
+}
+
 }
